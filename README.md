@@ -78,10 +78,9 @@ class A implements Runnable {
     }
 }
 
-// Same change applies to class B
+Same change applies to class B
 
-
-// In ThreadTest.ThreadWork():
+In ThreadTest.ThreadWork():
 Counter sharedCounter = new Counter();
 Runnable obj1 = new A(this.initializer, sharedCounter);
 Runnable obj2 = new B(this.initializer, sharedCounter);
