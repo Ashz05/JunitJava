@@ -2,7 +2,7 @@ package org.ThreadCheck;
 
 class Counter{
     static int count;
-    public static void Counting(){
+    public synchronized static void Counting(){
         count++;
     }
 }
