@@ -54,7 +54,7 @@ Actual result: anywhere between `100` and `200`, non-deterministically.
 Pass a **single shared `Counter` instance** into both threads instead of creating one per thread.
 
 ## Java Code
-class A implements Runnable {
+    class A implements Runnable {
     int initializer;
     Counter count; 
 
