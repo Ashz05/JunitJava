@@ -16,7 +16,7 @@ A race condition occurs when two or more threads access shared mutable state con
 
 Despite `Counting()` being marked `synchronized`, there is a subtle but critical bug:
 
-## java
+## Java
 // In class A
 Counter count = new Counter(); // ← new instance per thread
 
