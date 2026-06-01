@@ -16,7 +16,7 @@ A race condition occurs when two or more threads access shared mutable state con
 
 Despite `Counting()` being marked `synchronized`, there is a subtle but critical bug:
 
-```````java
+## java
 // In class A
 Counter count = new Counter(); // ← new instance per thread
 
@@ -53,10 +53,10 @@ Actual result: anywhere between `100` and `200`, non-deterministically.
 
 Pass a **single shared `Counter` instance** into both threads instead of creating one per thread.
 
-``````java
+## Java Code
 class A implements Runnable {
     int initializer;
-    Counter count; // shared instance
+    Counter count; 
 
     public A(int initializer, Counter count) {
         this.initializer = initializer;
@@ -79,14 +79,13 @@ class A implements Runnable {
 }
 
 // Same change applies to class B
-` ` `
 
-`````java
+
 // In ThreadTest.ThreadWork():
 Counter sharedCounter = new Counter();
 Runnable obj1 = new A(this.initializer, sharedCounter);
 Runnable obj2 = new B(this.initializer, sharedCounter);
-` ` `
+
 
 Now both threads lock on the **same object**, so `synchronized` works as intended.
 
@@ -96,7 +95,7 @@ Now both threads lock on the **same object**, so `synchronized` works as intende
 
 Replace `static int count` with `AtomicInteger` for a lock-free, thread-safe alternative:
 
-````java
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 class Counter {
@@ -106,7 +105,7 @@ class Counter {
         count.incrementAndGet(); // atomic, no synchronization needed
     }
 }
-` ` `
+
 
 `AtomicInteger.incrementAndGet()` uses CPU-level compare-and-swap (CAS), making it safe without any `synchronized` keyword.
 
@@ -116,7 +115,7 @@ class Counter {
 
 If keeping separate instances is required, synchronize on the **class** rather than the instance:
 
-```java
+
 class Counter {
     static int count;
 
@@ -126,11 +125,9 @@ class Counter {
         }
     }
 }
-` ` `
+
 
 This ensures all threads, regardless of which `Counter` instance they hold, compete for the same lock.
-
----
 
 ## Summary Table
 
@@ -150,5 +147,3 @@ This ensures all threads, regardless of which `Counter` instance they hold, comp
 - Prefer `AtomicInteger` or `java.util.concurrent` utilities over manual `synchronized` blocks for modern Java concurrency.
 - Always reset shared static state between test runs (e.g., `Counter.count = 0`) to avoid test pollution.
 ```
-
-Just copy this into a file named `README.md` at the root of your project. The closing triple backticks in my display above have spaces added to avoid rendering — in your actual file they should be three plain backticks ` ``` ` with no spaces.
