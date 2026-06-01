@@ -146,4 +146,4 @@ This ensures all threads, regardless of which `Counter` instance they hold, comp
 - A `static` field shared across instances requires either a **shared lock** or an **atomic type**.
 - Prefer `AtomicInteger` or `java.util.concurrent` utilities over manual `synchronized` blocks for modern Java concurrency.
 - Always reset shared static state between test runs (e.g., `Counter.count = 0`) to avoid test pollution.
-```
+
