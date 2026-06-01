@@ -73,10 +73,10 @@ Pass a **single shared `Counter` instance** into both threads instead of creatin
                 i++;
             } catch (InterruptedException e) {
                 System.out.println("Error: " + e.getMessage());
+                }
             }
         }
     }
-}
 
 Same change applies to class B
 
